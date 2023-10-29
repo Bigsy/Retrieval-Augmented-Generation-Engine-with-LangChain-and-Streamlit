@@ -38,7 +38,7 @@ def embeddings_on_local_vectordb(texts):
     vectordb = Chroma.from_documents(texts, embedding=OpenAIEmbeddings(),
                                      persist_directory=LOCAL_VECTOR_STORE_DIR.as_posix())
     vectordb.persist()
-    retriever = vectordb.as_retriever(search_kwargs={'k': 7})
+    retriever = vectordb.as_retriever(search_kwargs={'k': 3})
     return retriever
 
 def embeddings_on_pinecone(texts):
