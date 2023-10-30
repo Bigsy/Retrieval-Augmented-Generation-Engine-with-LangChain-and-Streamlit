@@ -30,7 +30,7 @@ def load_documents():
     return documents
 
 def split_documents(documents):
-    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+    text_splitter = CharacterTextSplitter(chunk_size=500, chunk_overlap=50)
     texts = text_splitter.split_documents(documents)
     return texts
 
@@ -38,7 +38,7 @@ def embeddings_on_local_vectordb(texts):
     vectordb = Chroma.from_documents(texts, embedding=OpenAIEmbeddings(),
                                      persist_directory=LOCAL_VECTOR_STORE_DIR.as_posix())
     vectordb.persist()
-    retriever = vectordb.as_retriever(search_kwargs={'k': 3})
+    retriever = vectordb.as_retriever(search_kwargs={'k': 10})
     return retriever
 
 def embeddings_on_pinecone(texts):
